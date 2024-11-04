@@ -1,5 +1,7 @@
 
 body {
+  background-image: url("snake.jpg");
+  
   background-color: rgb(0, 2, 139)
 
 }
