@@ -164,11 +164,13 @@ function hasHitWall() {
   
   HINT: What will the row and column of the snake's head be if this were the case?
   */
-  ROWS; // the total number of ROWS in the board
-  COLUMNS; // the total number of COLUMNS in the board
-  snake.head.row; // the current row of snake.head
-  snake.head.column; // the current column of snake.head
+ if (snake.head.row < 0 || snake.head.row > ROWS || snake.head.column < 0 || snake.head.column > COLUMNS) {
+   
+  return true;
+  
+ } else {
   return false;
+ }
 }
 
 function hasCollidedWithApple() {
@@ -235,12 +237,16 @@ function hasCollidedWithSnake() {
     var snakeSquare = snake.body[i]; 
 
     
+    
     if (snake.head.row === snakeSquare.row && snake.head.column === snakeSquare.column) {
       return true; 
     }
   }
   return false;
+  
 }
+
+
 
 function endGame() {
   // stop update function from running
@@ -256,6 +262,7 @@ function endGame() {
 
   // restart the game after 500 ms
   setTimeout(init, 500);
+  
 }
 
 ////////////////////////////////////////////////////////////////////////////////
