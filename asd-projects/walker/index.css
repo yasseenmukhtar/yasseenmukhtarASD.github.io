@@ -17,6 +17,13 @@ body {
   height: 50px;
   position: absolute;
   border-radius: 5cm;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+}
+  #walker2 {
+    background-color: rgb(0, 128, 21);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 5cm;
+    left: 100px; 
+    top: 100px;  
 }
