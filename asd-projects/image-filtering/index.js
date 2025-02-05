@@ -21,11 +21,10 @@ function resetAndRender() {
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
   applyFilterNoBackground(reddify);
-  keepInbounds();
-  applyFilterNoBackground(reddify);             // Apply the reddify filter
-  applyFilterNoBackground(decreaseBlue);        // Apply the decreaseBlue filter
-  applyFilterNoBackground(increaseGreenByBlue); // Apply the increaseGreenByBlue filter
-  applySmudge();
+  applyFilterNoBackground(reddify);             // Apply the reddify filter(Just for me to remember whicg is which)
+  applyFilterNoBackground(decreaseBlue);        // Apply the decreseBlue filter
+  applyFilterNoBackground(increaseGreenByBlue); // Apply the increaseGrenByBlue filter
+  applySmudge();                                        
   // do not change the below line of code
   render($("#display"), image);
 }
@@ -67,12 +66,21 @@ function applyFilterNoBackground(filterFunction) {
         filterFunction(rgbNumbers);
       }
 
-      // Convert the updated RGB values back to a string and store them
-      rgbString = rgbArrayToString(rgbNumbers);
-      image[i][j] = rgbString;
+      
+      if(rgbNumbers[RED] !== backgroundColor[RED] || 
+        rgbNumbers[GREEN] !== backgroundColor[GREEN] || 
+        rgbNumbers[BLUE] !== backgroundColor[BLUE])
+      
+      
+      filterFunction(rgbNumbers);
+    }
+
+    
+    rgbString = rgbArrayToString(rgbNumbers);
+    image[i][j] = rgbString;
     }
   }
-}
+
 
 
 function arraysEqual(arr1, arr2) {
@@ -80,17 +88,7 @@ function arraysEqual(arr1, arr2) {
 }
 
 
-function applyAndRender() {
-  
-  applyFilterNoBackground(reddify);
-  keepInbounds();
-  applyFilterNoBackground(reddify);             
-  applyFilterNoBackground(decreaseBlue);        
-  applyFilterNoBackground(increaseGreenByBlue); 
-  applySmudge();
-  // Render the final image
-  render($("#display"), image);
-}
+
 
 
 // TODO 5: Create the keepInBounds function
