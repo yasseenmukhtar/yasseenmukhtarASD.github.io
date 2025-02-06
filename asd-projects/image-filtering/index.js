@@ -20,11 +20,12 @@ function resetAndRender() {
 // all of your apply functions
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
-  applyFilterNoBackground(reddify);
-  applyFilterNoBackground(reddify);             // Apply the reddify filter(Just for me to remember whicg is which)
-  applyFilterNoBackground(decreaseBlue);        // Apply the decreseBlue filter
-  applyFilterNoBackground(increaseGreenByBlue); // Apply the increaseGrenByBlue filter
-  applySmudge();                                        
+  //applyFilterNoBackground(reddify);
+ // applyFilterNoBackground(decreaseBlue);        // Apply the decreseBlue filter
+  //applyFilterNoBackground(increaseGreenByBlue); // Apply the increaseGrenByBlue filter
+  //applyFilter(reddify);
+  //applyFilter(decreaseBlue);
+    applyFilter(increaseGreenByBlue);                                     
   // do not change the below line of code
   render($("#display"), image);
 }
@@ -52,41 +53,22 @@ function applyFilter(filterFunction){
 
 function applyFilterNoBackground(filterFunction) {
   
-  var backgroundColor = rgbStringToArray(image[0][0]);
-
-  
+  var backgroundColor = image[0][0];
   for(var i = 0; i < image.length; i++) {
     for(var j = 0; j < image[i].length; j++) {
       var rgbString = image[i][j];
-      var rgbNumbers = rgbStringToArray(rgbString);
-
-      
-      if (!arraysEqual(rgbNumbers, backgroundColor)) {
-        
+      if(rgbString !== backgroundColor ) {
+        var rgbNumbers = rgbStringToArray(rgbString);
         filterFunction(rgbNumbers);
+        //rgbNumbers[GREEN] = 0;
+        rgbString = rgbArrayToString(rgbNumbers);
+        image[i][j] = rgbString;
       }
-
       
-      if(rgbNumbers[RED] !== backgroundColor[RED] || 
-        rgbNumbers[GREEN] !== backgroundColor[GREEN] || 
-        rgbNumbers[BLUE] !== backgroundColor[BLUE])
-      
-      
-      filterFunction(rgbNumbers);
-    }
-
     
-    rgbString = rgbArrayToString(rgbNumbers);
-    image[i][j] = rgbString;
     }
   }
-
-
-
-function arraysEqual(arr1, arr2) {
-  return arr1[RED] === arr2[RED] && arr1[GREEN] === arr2[GREEN] && arr1[BLUE] === arr2[BLUE];
 }
-
 
 
 
@@ -110,35 +92,4 @@ function increaseGreenByBlue(arr2) {
   arr2[GREEN] = keepInbounds(arr2[GREEN] + arr2[BLUE]); 
 }
 
-//The simple challenge (smudge)
-function smudge(currentPixel, neighborPixel) {
-  
-  const smudgeAmount = 0.5; 
-  for (let i = 0; i < 3; i++) {
-    currentPixel[i] = keepInbounds(currentPixel[i] + (neighborPixel[i] - currentPixel[i]) * smudgeAmount);
-  }
-}
 
-
-function applySmudge() {
-  for (var i = 0; i < image.length; i++) {
-    for (var j = 0; j < image[i].length; j++) {
-      var currentPixel = rgbStringToArray(image[i][j]);
-      
-      
-      if (j < image[i].length - 1) {
-        var rightNeighbor = rgbStringToArray(image[i][j + 1]);
-        smudge(currentPixel, rightNeighbor);
-      }
-      
-      
-      if (i < image.length - 1) {
-        var downNeighbor = rgbStringToArray(image[i + 1][j]);
-        smudge(currentPixel, downNeighbor);
-      }
-      
-      
-      image[i][j] = rgbArrayToString(currentPixel);
-    }
-  }
-}
